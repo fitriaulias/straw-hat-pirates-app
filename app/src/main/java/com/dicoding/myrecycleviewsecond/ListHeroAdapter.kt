@@ -9,11 +9,6 @@ import com.dicoding.myrecycleviewsecond.databinding.ItemRowHeroBinding
 
 
 class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val binding = ItemRowHeroBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -27,13 +22,14 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adap
             .into(holder.binding.imgItemPhoto) // imageView mana yang akan diterapkan
         holder.binding.tvItemName.text = name
         holder.binding.tvItemDescription.text = description
-//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listHero[holder.adapterPosition])}
-    holder.itemView.setOnClickListener {
-        val intentDetail = Intent(holder.itemView.context, DetailActivity::class.java)
-        intentDetail.putExtra("key_hero", listHero[holder.adapterPosition])
-        holder.itemView.context.startActivity(intentDetail)
-    }
-    }
+
+
+        holder.itemView.setOnClickListener {
+            val intentDetail = Intent(holder.itemView.context, DetailActivity::class.java)
+            intentDetail.putExtra("key_hero", listHero[holder.adapterPosition])
+            holder.itemView.context.startActivity(intentDetail)
+            }
+        }
 
     override fun getItemCount(): Int = listHero.size
 
@@ -41,7 +37,4 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adap
 
     }
 
-    interface OnItemClickCallback {
-        fun onItemClicked(data: Hero)
-    }
 }
